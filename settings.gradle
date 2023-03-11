@@ -15,5 +15,5 @@ dependencyResolutionManagement {
 rootProject.name = "QRCodeGeneratorWay"
 include ':app'
 include ':core'
-include ':generator'
+include ':generation'
 include ':generation_from_text'

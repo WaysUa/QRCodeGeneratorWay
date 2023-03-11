@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/generationFromTextNavGraph"
+    app:startDestination="@id/generationFromTextFragment">
+
+    <fragment
+        android:id="@+id/generationFromTextFragment"
+        android:name="com.main.generation_from_text.presentation.ui.GenerationFromTextFragment"
+        android:label="GenerationFromTextFragment">
+
+        <deepLink app:uri="QRCodeGeneratorWay://generation/from/text" />
+    </fragment>
+</navigation>

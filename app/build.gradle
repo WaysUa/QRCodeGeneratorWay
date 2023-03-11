@@ -56,5 +56,6 @@ dependencies {
     implementation 'javax.inject:javax.inject:1'
     //Modules
     implementation project(path: ':core')
-    implementation project(path: ':generator')
+    implementation project(path: ':generation')
+    implementation project(path: ':generation_from_text')
 }

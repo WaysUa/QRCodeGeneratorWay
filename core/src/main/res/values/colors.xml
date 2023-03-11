@@ -9,10 +9,10 @@
     <color name="white">#FFFFFFFF</color>
     <color name="cream">#CF9494</color>
 
-<!--    <color name="azure">#ECF8F8</color>-->
     <color name="space_cadet">#22223B</color>
     <color name="independence">#4A4E69</color>
     <color name="heliotrope_gray">#9A8C98</color>
     <color name="silver_pink">#C9ADA7</color>
     <color name="isabelline">#F2E9E4</color>
+    <color name="dark_green">#115C48</color>
 </resources>

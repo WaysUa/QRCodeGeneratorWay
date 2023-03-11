@@ -20,4 +20,5 @@
         app:title="Generator"
         app:titleCentered="true"
         app:titleTextColor="@color/black" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

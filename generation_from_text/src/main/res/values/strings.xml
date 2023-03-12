@@ -1,4 +1,4 @@
 <resources>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="generation_from_text">Generation from text</string>
+    <string name="insert_text">Insert Text</string>
 </resources>

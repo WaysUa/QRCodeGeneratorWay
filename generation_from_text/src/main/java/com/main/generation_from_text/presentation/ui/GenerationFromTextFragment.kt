@@ -8,19 +8,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.activityViewModels
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 import com.main.core.base.BaseFragment
-import com.main.generation_from_text.R
 import com.main.generation_from_text.databinding.FragmentGenerationFromTextBinding
+import com.main.generation_from_text.di.provider.ProvideGenerationFromTextComponent
+import com.main.generation_from_text.presentation.viewmodel.GenerationFromTextViewModel
+import com.main.generation_from_text.presentation.viewmodel.GenerationFromTextViewModelFactory
+import javax.inject.Inject
 
 class GenerationFromTextFragment : BaseFragment() {
     private val binding by lazy { FragmentGenerationFromTextBinding.inflate(layoutInflater) }
+    @Inject
+    lateinit var generationFromTextViewModelFactory: GenerationFromTextViewModelFactory
+    private val generationFromTextViewModel: GenerationFromTextViewModel by activityViewModels { generationFromTextViewModelFactory }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +35,7 @@ class GenerationFromTextFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity().applicationContext as ProvideGenerationFromTextComponent).provideGenerationFromTextComponent().inject(this)
 
         binding.btnGenerate.setOnClickListener {
             val dialog = Dialog(requireContext())
@@ -46,7 +53,8 @@ class GenerationFromTextFragment : BaseFragment() {
             val btnClose = dialog.findViewById<ImageView>(com.main.core.R.id.btnClose)
 
             tvTextInfo.text = binding.etText.text.toString()
-            ivQRCode.setImageBitmap(createQRCodeFromText(binding.etText.text.toString()))
+            val image = generationFromTextViewModel.generateQRCodeFromText(binding.etText.text.toString())
+            ivQRCode.setImageBitmap(image)
             btnClose.setOnClickListener { dialog.hide() }
 
             dialog.window?.attributes = layoutParams
@@ -60,20 +68,5 @@ class GenerationFromTextFragment : BaseFragment() {
                 binding.btnGenerate.visibility = View.GONE
             }
         }
-    }
-
-    private fun createQRCodeFromText(text: String, height: Int = 500, width: Int = 500): Bitmap {
-        val writer = QRCodeWriter()
-        val bitMatrix = writer.encode(text, BarcodeFormat.QR_CODE, width, height)
-        val qrCodeBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-        val pixels = IntArray(width * height)
-        for (y in 0 until height) {
-            val offset = y * width
-            for (x in 0 until width) {
-                pixels[offset + x] = if (bitMatrix.get(x, y)) Color.BLACK else Color.WHITE
-            }
-        }
-        qrCodeBitmap.setPixels(pixels, 0, width, 0, 0, width, height)
-        return qrCodeBitmap
     }
 }

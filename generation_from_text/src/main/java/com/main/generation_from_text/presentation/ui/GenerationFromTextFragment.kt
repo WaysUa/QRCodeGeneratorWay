@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.main.core.SimpleTextWatcher
 import com.main.core.base.BaseFragment
@@ -43,6 +44,10 @@ class GenerationFromTextFragment : BaseFragment() {
 
         binding.btnGenerate.setOnClickListener {
             generationFromTextViewModel.generateQRCodeFromText(binding.etText.text.toString())
+        }
+
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
         }
 
         generationFromTextViewModel.observeImage(this) { image ->

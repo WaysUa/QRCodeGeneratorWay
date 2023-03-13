@@ -28,5 +28,5 @@ interface ObserveGenerationFromTextCommunication {
 }
 
 interface GenerationFormTextImageCommunication: Communication.Mutable<Bitmap> {
-    class Base: Communication.Ui<Bitmap>(), GenerationFormTextImageCommunication
+    class Base: Communication.SingleUi<Bitmap>(), GenerationFormTextImageCommunication
 }

@@ -1,6 +1,8 @@
 package com.main.generation_from_text.di.modules
 
+import com.main.generation_from_text.domain.dialog.ManageGeneratedDialogFromText
 import com.main.generation_from_text.domain.generation.GenerationFromTextRepository
+import com.main.generation_from_text.domain.usecase.GenerationFromTextUseCase
 import dagger.Module
 import dagger.Provides
 
@@ -12,4 +14,10 @@ class GenerationFromTextDomainModule {
         return GenerationFromTextRepository.Base()
     }
 
+    @Provides
+    fun provideGenerationFromTextUseCase(
+        generationFromTextRepository: GenerationFromTextRepository
+    ): GenerationFromTextUseCase {
+        return GenerationFromTextUseCase(generationFromTextRepository)
+    }
 }

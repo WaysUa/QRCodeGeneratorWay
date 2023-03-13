@@ -1,8 +1,9 @@
 package com.main.generation_from_text.presentation.ui
 
-import android.app.Dialog
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
@@ -41,7 +42,12 @@ class GenerationFromTextFragment : BaseFragment() {
         (requireActivity().applicationContext as ProvideGenerationFromTextComponent).provideGenerationFromTextComponent().inject(this)
 
         binding.btnGenerate.setOnClickListener {
+            generationFromTextViewModel.generateQRCodeFromText(binding.etText.text.toString())
+        }
+
+        generationFromTextViewModel.observeImage(this) { image ->
             val dialog = generationFromTextViewModel.createDialog(requireContext())
+
             val tvTextInfo = dialog.findViewById<TextView>(com.main.core.R.id.tvTextInfo)
             val btnFavorite = dialog.findViewById<FloatingActionButton>(com.main.core.R.id.btnFavorite)
             val btnMoreOptions = dialog.findViewById<FloatingActionButton>(com.main.core.R.id.btnMoreOptions)
@@ -49,10 +55,8 @@ class GenerationFromTextFragment : BaseFragment() {
             val btnClose = dialog.findViewById<ImageView>(com.main.core.R.id.btnClose)
 
             tvTextInfo.text = binding.etText.text
-            val image = generationFromTextViewModel.generateQRCodeFromText(binding.etText.text.toString())
-            ivQRCode.setImageBitmap(image)
-
             btnClose.setOnClickListener { dialog.hide() }
+            ivQRCode.setImageBitmap(image)
             dialog.show()
         }
     }

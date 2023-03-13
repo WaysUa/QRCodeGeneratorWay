@@ -7,7 +7,7 @@ import com.google.zxing.qrcode.QRCodeWriter
 
 interface GenerationFromTextRepository {
 
-    fun generateQRCodeFromText(text: String, height: Int = 500, width: Int = 500): Bitmap
+    fun generateQRCodeFromText(text: String, height: Int, width: Int): Bitmap
 
     class Base : GenerationFromTextRepository {
 

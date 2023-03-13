@@ -3,28 +3,30 @@ package com.main.generation_from_text.presentation.viewmodel
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Bitmap
-import android.view.WindowManager
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import com.main.core.base.BaseViewModel
-import com.main.generation_from_text.domain.generation.GenerationFromTextRepository
+import com.main.generation_from_text.domain.dialog.ManageGeneratedDialogFromText
+import com.main.generation_from_text.domain.usecase.GenerationFromTextUseCase
+import com.main.generation_from_text.presentation.communication.GenerationFromTextCommunication
+import com.main.generation_from_text.presentation.communication.ObserveGenerationFromTextCommunication
 
 class GenerationFromTextViewModel(
-    private val generationFromTextRepository: GenerationFromTextRepository
-) : BaseViewModel(), GenerationFromTextRepository {
+    private val generationFromTextUseCase: GenerationFromTextUseCase,
+    private val generationFromTextCommunication: GenerationFromTextCommunication,
+    private val manageGeneratedDialogFromText: ManageGeneratedDialogFromText
+) : BaseViewModel(), ObserveGenerationFromTextCommunication, ManageGeneratedDialogFromText {
 
-    fun createDialog(context: Context): Dialog {
-        val dialog = Dialog(context)
-        dialog.setContentView(com.main.core.R.layout.dialog_qr_code_from_text)
-
-        val layoutParams = WindowManager.LayoutParams()
-        layoutParams.copyFrom(dialog.window?.attributes)
-        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT
-        layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT
-
-        dialog.window?.attributes = layoutParams
-        return dialog
+    fun generateQRCodeFromText(text: String, height: Int = 500, width: Int = 500) {
+        val image = generationFromTextUseCase.execute(text, height, width)
+        generationFromTextCommunication.mapImage(image)
     }
 
-    override fun generateQRCodeFromText(text: String, height: Int, width: Int): Bitmap {
-        return generationFromTextRepository.generateQRCodeFromText(text, height, width)
+    override fun observeImage(owner: LifecycleOwner, observer: Observer<Bitmap>) {
+        generationFromTextCommunication.observeImage(owner, observer)
+    }
+
+    override fun createDialog(context: Context): Dialog {
+        return manageGeneratedDialogFromText.createDialog(context)
     }
 }

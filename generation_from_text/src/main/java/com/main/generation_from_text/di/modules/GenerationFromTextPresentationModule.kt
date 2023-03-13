@@ -1,6 +1,10 @@
 package com.main.generation_from_text.di.modules
 
+import com.main.generation_from_text.domain.dialog.ManageGeneratedDialogFromText
 import com.main.generation_from_text.domain.generation.GenerationFromTextRepository
+import com.main.generation_from_text.domain.usecase.GenerationFromTextUseCase
+import com.main.generation_from_text.presentation.communication.GenerationFormTextImageCommunication
+import com.main.generation_from_text.presentation.communication.GenerationFromTextCommunication
 import com.main.generation_from_text.presentation.viewmodel.GenerationFromTextViewModelFactory
 import dagger.Module
 import dagger.Provides
@@ -10,9 +14,26 @@ class GenerationFromTextPresentationModule {
 
     @Provides
     fun provideGenerationFromTextViewModelFactory(
-        generationFromTextRepository: GenerationFromTextRepository
+        generationFromTextUseCase: GenerationFromTextUseCase,
+        generationFromTextCommunication: GenerationFromTextCommunication,
+        manageGeneratedDialogFromText: ManageGeneratedDialogFromText
     ): GenerationFromTextViewModelFactory {
-        return GenerationFromTextViewModelFactory(generationFromTextRepository)
+        return GenerationFromTextViewModelFactory(
+            generationFromTextUseCase = generationFromTextUseCase,
+            generationFromTextCommunication = generationFromTextCommunication,
+            manageGeneratedDialogFromText = manageGeneratedDialogFromText
+        )
     }
 
+    @Provides
+    fun provideGenerationFromTextCommunication(
+        generationFromTextImageCommunication: GenerationFormTextImageCommunication
+    ): GenerationFromTextCommunication {
+        return GenerationFromTextCommunication.Base(generationFromTextImageCommunication)
+    }
+
+    @Provides
+    fun provideGenerationFormTextImageCommunication(): GenerationFormTextImageCommunication {
+        return GenerationFormTextImageCommunication.Base()
+    }
 }

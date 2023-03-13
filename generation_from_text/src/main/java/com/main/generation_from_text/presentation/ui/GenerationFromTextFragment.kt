@@ -1,20 +1,13 @@
 package com.main.generation_from_text.presentation.ui
 
 import android.app.Dialog
-import android.graphics.Bitmap
-import android.graphics.Color
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.zxing.BarcodeFormat
-import com.google.zxing.qrcode.QRCodeWriter
+import com.main.core.SimpleTextWatcher
 import com.main.core.base.BaseFragment
 import com.main.generation_from_text.databinding.FragmentGenerationFromTextBinding
 import com.main.generation_from_text.di.provider.ProvideGenerationFromTextComponent
@@ -28,6 +21,16 @@ class GenerationFromTextFragment : BaseFragment() {
     lateinit var generationFromTextViewModelFactory: GenerationFromTextViewModelFactory
     private val generationFromTextViewModel: GenerationFromTextViewModel by activityViewModels { generationFromTextViewModelFactory }
 
+    private val mainTextWatcher = object : SimpleTextWatcher() {
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            if (s?.isNotEmpty() == true) {
+                binding.btnGenerate.visibility = View.VISIBLE
+            } else {
+                binding.btnGenerate.visibility = View.GONE
+            }
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -38,35 +41,29 @@ class GenerationFromTextFragment : BaseFragment() {
         (requireActivity().applicationContext as ProvideGenerationFromTextComponent).provideGenerationFromTextComponent().inject(this)
 
         binding.btnGenerate.setOnClickListener {
-            val dialog = Dialog(requireContext())
-            dialog.setContentView(com.main.core.R.layout.dialog_qr_code)
-
-            val layoutParams = WindowManager.LayoutParams()
-            layoutParams.copyFrom(dialog.window?.attributes)
-            layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT
-            layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT
-
+            val dialog = generationFromTextViewModel.createDialog(requireContext())
             val tvTextInfo = dialog.findViewById<TextView>(com.main.core.R.id.tvTextInfo)
             val btnFavorite = dialog.findViewById<FloatingActionButton>(com.main.core.R.id.btnFavorite)
             val btnMoreOptions = dialog.findViewById<FloatingActionButton>(com.main.core.R.id.btnMoreOptions)
             val ivQRCode = dialog.findViewById<ImageView>(com.main.core.R.id.ivQRCode)
             val btnClose = dialog.findViewById<ImageView>(com.main.core.R.id.btnClose)
 
-            tvTextInfo.text = binding.etText.text.toString()
+            tvTextInfo.text = binding.etText.text
             val image = generationFromTextViewModel.generateQRCodeFromText(binding.etText.text.toString())
             ivQRCode.setImageBitmap(image)
-            btnClose.setOnClickListener { dialog.hide() }
 
-            dialog.window?.attributes = layoutParams
+            btnClose.setOnClickListener { dialog.hide() }
             dialog.show()
         }
+    }
 
-        binding.etText.doOnTextChanged { text, start, before, count ->
-            if (text?.isNotEmpty() == true) {
-                binding.btnGenerate.visibility = View.VISIBLE
-            } else {
-                binding.btnGenerate.visibility = View.GONE
-            }
-        }
+    override fun onResume() {
+        binding.etText.addTextChangedListener(mainTextWatcher)
+        super.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.etText.removeTextChangedListener(mainTextWatcher)
     }
 }

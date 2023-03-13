@@ -5,11 +5,11 @@ import android.graphics.Color
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 
-interface GenerationFromText {
+interface GenerationFromTextRepository {
 
     fun generateQRCodeFromText(text: String, height: Int = 500, width: Int = 500): Bitmap
 
-    class Base : GenerationFromText {
+    class Base : GenerationFromTextRepository {
 
         override fun generateQRCodeFromText(text: String, height: Int, width: Int): Bitmap {
             val writer = QRCodeWriter()

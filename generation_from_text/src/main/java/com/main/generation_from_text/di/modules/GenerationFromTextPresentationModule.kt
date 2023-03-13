@@ -1,6 +1,6 @@
 package com.main.generation_from_text.di.modules
 
-import com.main.generation_from_text.domain.generation.GenerationFromText
+import com.main.generation_from_text.domain.generation.GenerationFromTextRepository
 import com.main.generation_from_text.presentation.viewmodel.GenerationFromTextViewModelFactory
 import dagger.Module
 import dagger.Provides
@@ -10,9 +10,9 @@ class GenerationFromTextPresentationModule {
 
     @Provides
     fun provideGenerationFromTextViewModelFactory(
-        generationFromText: GenerationFromText
+        generationFromTextRepository: GenerationFromTextRepository
     ): GenerationFromTextViewModelFactory {
-        return GenerationFromTextViewModelFactory(generationFromText)
+        return GenerationFromTextViewModelFactory(generationFromTextRepository)
     }
 
 }

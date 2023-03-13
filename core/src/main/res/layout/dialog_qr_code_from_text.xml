@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/independence"
     android:orientation="vertical"
     android:padding="16dp">
@@ -33,7 +33,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="24dp"
         android:text="Text"
         android:textColor="@color/black"
         android:textSize="25sp"
@@ -44,62 +44,54 @@
 
     <ImageView
         android:id="@+id/ivQRCode"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_marginTop="15dp"
+        android:layout_width="320dp"
+        android:layout_height="320dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@+id/ivQRCode"
-        app:layout_constraintStart_toStartOf="@+id/ivQRCode"
-        app:layout_constraintTop_toBottomOf="@+id/ivQRCode">
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btnFavorite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="35dp"
-            android:layout_marginBottom="10dp"
-            android:clickable="true"
-            app:backgroundTint="@color/isabelline"
-            app:fabCustomSize="70dp"
-            app:maxImageSize="35dp"
-            app:srcCompat="@drawable/icon_favorite" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btnMoreOptions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
-            android:layout_marginEnd="40dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            app:backgroundTint="@color/isabelline"
-            app:fabCustomSize="70dp"
-            app:maxImageSize="35dp"
-            app:srcCompat="@drawable/icon_more_options" />
-    </LinearLayout>
-
     <TextView
         android:id="@+id/tvTextInfo"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
         android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        tools:text="Text Info, bla bla bla..." />
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/ivQRCode"
+        app:layout_constraintStart_toStartOf="@+id/ivQRCode"
+        app:layout_constraintTop_toBottomOf="@+id/btnFavorite" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:clickable="true"
+        app:backgroundTint="@color/isabelline"
+        app:fabCustomSize="70dp"
+        app:layout_constraintStart_toStartOf="@+id/ivQRCode"
+        app:layout_constraintTop_toBottomOf="@+id/ivQRCode"
+        app:maxImageSize="35dp"
+        app:srcCompat="@drawable/icon_favorite" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnMoreOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="40dp"
+        android:layout_weight="1"
+        android:clickable="true"
+        app:backgroundTint="@color/isabelline"
+        app:fabCustomSize="70dp"
+        app:layout_constraintEnd_toEndOf="@+id/ivQRCode"
+        app:layout_constraintTop_toBottomOf="@+id/ivQRCode"
+        app:maxImageSize="35dp"
+        app:srcCompat="@drawable/icon_more_options" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

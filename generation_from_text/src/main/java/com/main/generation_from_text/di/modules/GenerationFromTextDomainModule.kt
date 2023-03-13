@@ -1,6 +1,6 @@
 package com.main.generation_from_text.di.modules
 
-import com.main.generation_from_text.domain.generation.GenerationFromText
+import com.main.generation_from_text.domain.generation.GenerationFromTextRepository
 import dagger.Module
 import dagger.Provides
 
@@ -8,8 +8,8 @@ import dagger.Provides
 class GenerationFromTextDomainModule {
 
     @Provides
-    fun provideGenerationFromText(): GenerationFromText {
-        return GenerationFromText.Base()
+    fun provideGenerationFromText(): GenerationFromTextRepository {
+        return GenerationFromTextRepository.Base()
     }
 
 }

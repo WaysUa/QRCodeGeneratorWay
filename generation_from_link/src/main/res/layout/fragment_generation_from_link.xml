@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/icon_back"
-        app:title="@string/generation_from_text"
+        app:title="@string/generation_from_link"
         app:titleCentered="true"
         app:titleTextColor="@color/isabelline" />
 
@@ -33,7 +33,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:paddingStart="4dp"
-        android:text="@string/text"
+        android:text="@string/link"
         android:textColor="@color/isabelline"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"

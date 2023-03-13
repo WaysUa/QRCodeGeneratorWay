@@ -58,4 +58,5 @@ dependencies {
     implementation project(path: ':core')
     implementation project(path: ':generation')
     implementation project(path: ':generation_from_text')
+    implementation project(path: ':generation_from_link')
 }

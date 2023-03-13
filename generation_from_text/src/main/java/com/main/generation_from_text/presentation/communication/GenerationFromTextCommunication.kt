@@ -10,15 +10,15 @@ interface GenerationFromTextCommunication : ObserveGenerationFromTextCommunicati
     fun mapImage(bitmap: Bitmap)
 
     class Base(
-        private val generationFormTextImageCommunication: GenerationFormTextImageCommunication
+        private val generationFromTextImageCommunication: GenerationFromTextImageCommunication
     ) : GenerationFromTextCommunication {
 
         override fun mapImage(bitmap: Bitmap) {
-            generationFormTextImageCommunication.map(bitmap)
+            generationFromTextImageCommunication.map(bitmap)
         }
 
         override fun observeImage(owner: LifecycleOwner, observer: Observer<Bitmap>) {
-            generationFormTextImageCommunication.observe(owner, observer)
+            generationFromTextImageCommunication.observe(owner, observer)
         }
     }
 }
@@ -27,6 +27,6 @@ interface ObserveGenerationFromTextCommunication {
     fun observeImage(owner: LifecycleOwner, observer: Observer<Bitmap>)
 }
 
-interface GenerationFormTextImageCommunication: Communication.Mutable<Bitmap> {
-    class Base: Communication.SingleUi<Bitmap>(), GenerationFormTextImageCommunication
+interface GenerationFromTextImageCommunication: Communication.Mutable<Bitmap> {
+    class Base: Communication.SingleUi<Bitmap>(), GenerationFromTextImageCommunication
 }

@@ -1,9 +1,9 @@
-package com.main.generation_from_text.domain.dialog
+package com.main.generation_from_link.domain.dialog
 
 import android.app.Dialog
 import android.content.Context
 
-interface ManageGeneratedDialogFromText {
+interface ManageGeneratedDialogFromLink {
 
     fun createDialog(context: Context): Dialog
 }

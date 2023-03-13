@@ -11,4 +11,8 @@ class GenerationViewModel(
     override fun navigateToGenerationFromTextFragment(navController: NavController) {
         generationNavigation.navigateToGenerationFromTextFragment(navController)
     }
+
+    override fun navigateToGenerationFromLinkFragment(navController: NavController) {
+        generationNavigation.navigateToGenerationFromLinkFragment(navController)
+    }
 }

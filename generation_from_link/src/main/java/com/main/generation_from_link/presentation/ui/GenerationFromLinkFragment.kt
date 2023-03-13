@@ -1,4 +1,4 @@
-package com.main.generation_from_text.presentation.ui
+package com.main.generation_from_link.presentation.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,18 +11,18 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.main.core.SimpleTextWatcher
 import com.main.core.base.BaseFragment
-import com.main.generation_from_text.R
-import com.main.generation_from_text.databinding.FragmentGenerationFromTextBinding
-import com.main.generation_from_text.di.provider.ProvideGenerationFromTextComponent
-import com.main.generation_from_text.presentation.viewmodel.GenerationFromTextViewModel
-import com.main.generation_from_text.presentation.viewmodel.GenerationFromTextViewModelFactory
+import com.main.generation_from_link.R
+import com.main.generation_from_link.databinding.FragmentGenerationFromLinkBinding
+import com.main.generation_from_link.di.provider.ProvideGenerationFromLinkComponent
+import com.main.generation_from_link.presentation.viewmodel.GenerationFromLinkViewModel
+import com.main.generation_from_link.presentation.viewmodel.GenerationFromLinkViewModelFactory
 import javax.inject.Inject
 
-class GenerationFromTextFragment : BaseFragment() {
-    private val binding by lazy { FragmentGenerationFromTextBinding.inflate(layoutInflater) }
+class GenerationFromLinkFragment : BaseFragment() {
+    private val binding by lazy { FragmentGenerationFromLinkBinding.inflate(layoutInflater) }
     @Inject
-    lateinit var generationFromTextViewModelFactory: GenerationFromTextViewModelFactory
-    private val generationFromTextViewModel: GenerationFromTextViewModel by activityViewModels { generationFromTextViewModelFactory }
+    lateinit var generationFromLinkViewModelFactory: GenerationFromLinkViewModelFactory
+    private val generationFromLinkViewModel: GenerationFromLinkViewModel by activityViewModels { generationFromLinkViewModelFactory }
 
     private val mainTextWatcher = object : SimpleTextWatcher() {
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -41,18 +41,18 @@ class GenerationFromTextFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity().applicationContext as ProvideGenerationFromTextComponent).provideGenerationFromTextComponent().inject(this)
+        (requireActivity().applicationContext as ProvideGenerationFromLinkComponent).provideGenerationFromLinkComponent().inject(this)
 
         binding.btnGenerate.setOnClickListener {
-            generationFromTextViewModel.generateQRCodeFromText(binding.etText.text.toString())
+            generationFromLinkViewModel.generateQRCodeFromLink(binding.etText.text.toString())
         }
 
         binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
 
-        generationFromTextViewModel.observeImage(this) { image ->
-            val dialog = generationFromTextViewModel.createDialog(requireContext())
+        generationFromLinkViewModel.observeImage(this) { image ->
+            val dialog = generationFromLinkViewModel.createDialog(requireContext())
 
             val tvTextInfo = dialog.findViewById<TextView>(R.id.tvTextInfo)
             val btnFavorite = dialog.findViewById<FloatingActionButton>(R.id.btnFavorite)

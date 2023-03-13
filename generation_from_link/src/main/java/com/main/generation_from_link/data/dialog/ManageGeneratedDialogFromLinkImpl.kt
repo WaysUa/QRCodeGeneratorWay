@@ -1,16 +1,16 @@
-package com.main.generation_from_text.data.dialog
+package com.main.generation_from_link.data.dialog
 
 import android.app.Dialog
 import android.content.Context
 import android.view.WindowManager
-import com.main.generation_from_text.R
-import com.main.generation_from_text.domain.dialog.ManageGeneratedDialogFromText
+import com.main.generation_from_link.R
+import com.main.generation_from_link.domain.dialog.ManageGeneratedDialogFromLink
 
-class ManageGeneratedDialogFromTextImpl : ManageGeneratedDialogFromText {
+class ManageGeneratedDialogFromLinkImpl : ManageGeneratedDialogFromLink {
 
     override fun createDialog(context: Context): Dialog {
         val dialog = Dialog(context)
-        dialog.setContentView(R.layout.dialog_qr_code_from_text)
+        dialog.setContentView(R.layout.dialog_qr_code_from_link)
 
         val layoutParams = WindowManager.LayoutParams()
         layoutParams.copyFrom(dialog.window?.attributes)

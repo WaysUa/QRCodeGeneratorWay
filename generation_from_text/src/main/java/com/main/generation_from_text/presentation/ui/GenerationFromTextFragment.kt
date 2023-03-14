@@ -1,5 +1,8 @@
 package com.main.generation_from_text.presentation.ui
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +26,7 @@ class GenerationFromTextFragment : BaseFragment() {
     @Inject
     lateinit var generationFromTextViewModelFactory: GenerationFromTextViewModelFactory
     private val generationFromTextViewModel: GenerationFromTextViewModel by activityViewModels { generationFromTextViewModelFactory }
-
+    private lateinit var clipboardManager:  ClipboardManager
     private val mainTextWatcher = object : SimpleTextWatcher() {
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             if (s?.isNotEmpty() == true) {
@@ -42,6 +45,7 @@ class GenerationFromTextFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity().applicationContext as ProvideGenerationFromTextComponent).provideGenerationFromTextComponent().inject(this)
+        clipboardManager = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
 
         binding.btnGenerate.setOnClickListener {
             generationFromTextViewModel.generateQRCodeFromText(binding.etText.text.toString())
@@ -61,6 +65,10 @@ class GenerationFromTextFragment : BaseFragment() {
             val btnClose = dialog.findViewById<ImageView>(R.id.btnClose)
 
             tvTextInfo.text = binding.etText.text
+            tvTextInfo.setOnLongClickListener {
+                clipboardManager.setPrimaryClip(ClipData.newPlainText("Text", tvTextInfo.text))
+                true
+            }
             btnClose.setOnClickListener { dialog.hide() }
             ivQRCode.setImageBitmap(image)
             dialog.show()

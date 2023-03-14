@@ -1,6 +1,13 @@
 package com.main.generation_from_link.presentation.ui
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.text.Html
+import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,12 +25,13 @@ import com.main.generation_from_link.presentation.viewmodel.GenerationFromLinkVi
 import com.main.generation_from_link.presentation.viewmodel.GenerationFromLinkViewModelFactory
 import javax.inject.Inject
 
+
 class GenerationFromLinkFragment : BaseFragment() {
     private val binding by lazy { FragmentGenerationFromLinkBinding.inflate(layoutInflater) }
     @Inject
     lateinit var generationFromLinkViewModelFactory: GenerationFromLinkViewModelFactory
     private val generationFromLinkViewModel: GenerationFromLinkViewModel by activityViewModels { generationFromLinkViewModelFactory }
-
+    private lateinit var clipboardManager:  ClipboardManager
     private val mainTextWatcher = object : SimpleTextWatcher() {
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             if (s?.isNotEmpty() == true) {
@@ -42,6 +50,7 @@ class GenerationFromLinkFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity().applicationContext as ProvideGenerationFromLinkComponent).provideGenerationFromLinkComponent().inject(this)
+        clipboardManager = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
 
         binding.btnGenerate.setOnClickListener {
             generationFromLinkViewModel.generateQRCodeFromLink(binding.etText.text.toString())
@@ -60,11 +69,24 @@ class GenerationFromLinkFragment : BaseFragment() {
             val ivQRCode = dialog.findViewById<ImageView>(R.id.ivQRCode)
             val btnClose = dialog.findViewById<ImageView>(R.id.btnClose)
 
-            tvTextInfo.text = binding.etText.text
+            tvTextInfo.text = formTextFromLayout()
+            tvTextInfo.setOnClickListener {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(tvTextInfo.text.toString()))
+                startActivity(intent)
+            }
+            tvTextInfo.setOnLongClickListener {
+                clipboardManager.setPrimaryClip(ClipData.newPlainText("Text", tvTextInfo.text))
+                true
+            }
             btnClose.setOnClickListener { dialog.hide() }
             ivQRCode.setImageBitmap(image)
             dialog.show()
         }
+    }
+
+    private fun formTextFromLayout(): Spanned {
+        val htmlTaggedString = "<u>${binding.etText.text}</u>"
+        return Html.fromHtml(htmlTaggedString, 0)
     }
 
     override fun onResume() {

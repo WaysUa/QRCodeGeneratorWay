@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/independence"
     android:theme="@style/Theme.QRCodeGeneratorWay"
-    tools:context=".presentation.ui.GenerationFromTextFragment">
-
+    tools:context=".presentation.ui.GenerationFromLinkFragment">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
@@ -46,7 +45,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:hint="@string/insert_text"
+        android:hint="@string/insert_link"
         android:textColorHint="@color/isabelline"
         app:boxStrokeColor="@color/space_cadet"
         app:boxStrokeErrorColor="#B10909"
@@ -58,9 +57,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etText"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:gravity="top"
-            android:singleLine="false"
+            android:singleLine="true"
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 

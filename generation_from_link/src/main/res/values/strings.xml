@@ -2,6 +2,5 @@
     <string name="generate">Generate</string>
     <string name="link">Link</string>
     <string name="generation_from_link">Generation from link</string>
-    <string name="insert_text">Insert Text</string>
-    <string name="text">Text</string>
+    <string name="insert_link">Insert Link</string>
 </resources>

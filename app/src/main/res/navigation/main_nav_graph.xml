@@ -7,4 +7,5 @@
     <include app:graph="@navigation/generation_nav_graph" />
     <include app:graph="@navigation/generation_from_text_nav_graph" />
     <include app:graph="@navigation/generation_from_link_nav_graph" />
+    <include app:graph="@navigation/generation_from_phone_nav_graph" />
 </navigation>

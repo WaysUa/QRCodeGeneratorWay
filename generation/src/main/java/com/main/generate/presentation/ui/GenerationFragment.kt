@@ -35,5 +35,9 @@ class GenerationFragment : BaseFragment() {
         binding.btnLink.setOnClickListener {
             generationViewModel.navigateToGenerationFromLinkFragment(findNavController())
         }
+
+        binding.btnPhone.setOnClickListener {
+            generationViewModel.navigateToGenerationFromPhoneFragment(findNavController())
+        }
     }
 }

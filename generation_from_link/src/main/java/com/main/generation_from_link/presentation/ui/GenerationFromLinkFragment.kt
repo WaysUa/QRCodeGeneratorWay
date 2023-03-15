@@ -63,19 +63,19 @@ class GenerationFromLinkFragment : BaseFragment() {
         generationFromLinkViewModel.observeImage(this) { image ->
             val dialog = generationFromLinkViewModel.createDialog(requireContext())
 
-            val tvTextInfo = dialog.findViewById<TextView>(R.id.tvTextInfo)
+            val tvLink = dialog.findViewById<TextView>(R.id.tvLink)
             val btnFavorite = dialog.findViewById<FloatingActionButton>(R.id.btnFavorite)
             val btnMoreOptions = dialog.findViewById<FloatingActionButton>(R.id.btnMoreOptions)
             val ivQRCode = dialog.findViewById<ImageView>(R.id.ivQRCode)
             val btnClose = dialog.findViewById<ImageView>(R.id.btnClose)
 
-            tvTextInfo.text = formTextFromLayout()
-            tvTextInfo.setOnClickListener {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(tvTextInfo.text.toString()))
+            tvLink.text = formTextFromLayout()
+            tvLink.setOnClickListener {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(tvLink.text.toString()))
                 startActivity(intent)
             }
-            tvTextInfo.setOnLongClickListener {
-                clipboardManager.setPrimaryClip(ClipData.newPlainText("Text", tvTextInfo.text))
+            tvLink.setOnLongClickListener {
+                clipboardManager.setPrimaryClip(ClipData.newPlainText("Text", tvLink.text))
                 true
             }
             btnClose.setOnClickListener { dialog.hide() }

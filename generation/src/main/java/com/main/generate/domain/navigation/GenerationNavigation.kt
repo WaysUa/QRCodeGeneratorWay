@@ -9,6 +9,8 @@ interface GenerationNavigation {
 
     fun navigateToGenerationFromLinkFragment(navController: NavController)
 
+    fun navigateToGenerationFromPhoneFragment(navController: NavController)
+
     class Base : GenerationNavigation {
 
         override fun navigateToGenerationFromTextFragment(navController: NavController) {
@@ -17,6 +19,10 @@ interface GenerationNavigation {
 
         override fun navigateToGenerationFromLinkFragment(navController: NavController) {
             navController.navigate(DeepLinks.GENERATION_FROM_LINK_DEEP_LINK)
+        }
+
+        override fun navigateToGenerationFromPhoneFragment(navController: NavController) {
+            navController.navigate(DeepLinks.GENERATION_FROM_PHONE_DEEP_LINK)
         }
     }
 }

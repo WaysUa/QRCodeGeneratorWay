@@ -1,0 +1,7 @@
+<resources>
+    <string name="generate">Generate</string>
+    <string name="insert_link">Insert Link</string>
+    <string name="phone">Phone Number</string>
+    <string name="generation_from_phone">Generation From Phone</string>
+    <string name="insert_phone_number">Insert Phone Number</string>
+</resources>

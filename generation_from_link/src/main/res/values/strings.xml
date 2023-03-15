@@ -3,4 +3,5 @@
     <string name="link">Link</string>
     <string name="generation_from_link">Generation from link</string>
     <string name="insert_link">Insert Link</string>
+    <string name="link_is_wrong">Link is wrong to open it in browser </string>
 </resources>

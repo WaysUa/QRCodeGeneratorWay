@@ -3,8 +3,9 @@ package com.main.generation_from_phone.presentation.ui
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,16 +60,22 @@ class GenerationFromPhoneFragment : BaseFragment() {
         generationFromTextViewModel.observeImage(this) { image ->
             val dialog = generationFromTextViewModel.createDialog(requireContext())
 
-            val tvTextInfo = dialog.findViewById<TextView>(R.id.tvPhoneNumber)
+            val tvPhoneNumber = dialog.findViewById<TextView>(R.id.tvPhoneNumber)
             val btnFavorite = dialog.findViewById<FloatingActionButton>(R.id.btnFavorite)
             val btnMoreOptions = dialog.findViewById<FloatingActionButton>(R.id.btnMoreOptions)
             val ivQRCode = dialog.findViewById<ImageView>(R.id.ivQRCode)
             val btnClose = dialog.findViewById<ImageView>(R.id.btnClose)
 
-            tvTextInfo.text = binding.etPhoneNumber.text
-            tvTextInfo.setOnLongClickListener {
-                clipboardManager.setPrimaryClip(ClipData.newPlainText("Text", tvTextInfo.text))
+            tvPhoneNumber.text = binding.etPhoneNumber.text
+            tvPhoneNumber.setOnLongClickListener {
+                clipboardManager.setPrimaryClip(ClipData.newPlainText("Text", tvPhoneNumber.text))
                 true
+            }
+            tvPhoneNumber.setOnClickListener {
+                val intent = Intent(Intent.ACTION_INSERT)
+                    .setType(ContactsContract.Contacts.CONTENT_TYPE)
+                    .putExtra(ContactsContract.Intents.Insert.PHONE, tvPhoneNumber.text)
+                startActivity(intent)
             }
             btnClose.setOnClickListener { dialog.hide() }
             ivQRCode.setImageBitmap(image)

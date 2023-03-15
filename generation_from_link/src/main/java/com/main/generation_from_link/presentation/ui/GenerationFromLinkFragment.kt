@@ -8,11 +8,13 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Html
 import android.text.Spanned
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -71,8 +73,12 @@ class GenerationFromLinkFragment : BaseFragment() {
 
             tvLink.text = formTextFromLayout()
             tvLink.setOnClickListener {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(tvLink.text.toString()))
-                startActivity(intent)
+                try {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(tvLink.text.toString()))
+                    startActivity(intent)
+                } catch (e: Exception) {
+                    Toast.makeText(requireContext(), R.string.link_is_wrong, Toast.LENGTH_SHORT).show()
+                }
             }
             tvLink.setOnLongClickListener {
                 clipboardManager.setPrimaryClip(ClipData.newPlainText("Text", tvLink.text))

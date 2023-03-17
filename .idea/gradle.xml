@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/favorites" />
             <option value="$PROJECT_DIR$/generation" />
             <option value="$PROJECT_DIR$/generation_from_link" />
             <option value="$PROJECT_DIR$/generation_from_phone" />

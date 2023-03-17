@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/independence"
     android:orientation="vertical"
+    android:theme="@style/Theme.QRCodeGeneratorWay"
     android:padding="16dp">
 
     <ImageView

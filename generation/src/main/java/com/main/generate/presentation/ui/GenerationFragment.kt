@@ -28,6 +28,11 @@ class GenerationFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity().applicationContext as ProvideGenerationComponent).provideGenerationComponent().inject(this)
 
+        binding.bottomNavigationBar.menu.select(com.main.core.R.id.itemGeneration)
+        binding.bottomNavigationBar.onItemSelectedListener = { _, menuItem, _ ->
+            generationViewModel.manageMenuItem(menuItem, findNavController())
+        }
+
         binding.btnText.setOnClickListener {
             generationViewModel.navigateToGenerationFromTextFragment(findNavController())
         }

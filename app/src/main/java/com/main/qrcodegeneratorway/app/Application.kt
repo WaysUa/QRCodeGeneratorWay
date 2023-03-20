@@ -1,6 +1,11 @@
 package com.main.qrcodegeneratorway.app
 
 import android.app.Application
+import com.main.favorites.di.component.DaggerFavoritesComponent
+import com.main.favorites.di.component.FavoritesComponent
+import com.main.favorites.di.modules.FavoritesDomainModule
+import com.main.favorites.di.modules.FavoritesPresentationModule
+import com.main.favorites.di.provider.ProvideFavoritesComponent
 import com.main.generate.di.component.DaggerGenerationComponent
 import com.main.generate.di.component.GenerationComponent
 import com.main.generate.di.modules.GenerationDomainModule
@@ -26,7 +31,7 @@ import com.main.generation_from_text.di.modules.GenerationFromTextPresentationMo
 import com.main.generation_from_text.di.provider.ProvideGenerationFromTextComponent
 
 class Application : Application(), ProvideGenerationComponent, ProvideGenerationFromTextComponent,
-    ProvideGenerationFromLinkComponent, ProvideGenerationFromPhoneComponent {
+    ProvideGenerationFromLinkComponent, ProvideGenerationFromPhoneComponent, ProvideFavoritesComponent {
 
     private val generationComponent by lazy {
         DaggerGenerationComponent
@@ -63,6 +68,14 @@ class Application : Application(), ProvideGenerationComponent, ProvideGeneration
             .build()
     }
 
+    private val favoritesComponent by lazy {
+        DaggerFavoritesComponent
+            .builder()
+            .favoritesDomainModule(FavoritesDomainModule())
+            .favoritesPresentationModule(FavoritesPresentationModule())
+            .build()
+    }
+
     override fun provideGenerationComponent(): GenerationComponent {
         return generationComponent
     }
@@ -77,5 +90,9 @@ class Application : Application(), ProvideGenerationComponent, ProvideGeneration
 
     override fun provideGenerationFromPhoneComponent(): GenerationFromPhoneComponent {
         return generationFromPhoneComponent
+    }
+
+    override fun provideFavoritesComponent(): FavoritesComponent {
+        return favoritesComponent
     }
 }

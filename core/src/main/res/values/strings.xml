@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="generated_qr_code">Generated QR Code</string>
+    <string name="item_favorites">Favorites</string>
+    <string name="item_generation">Generation</string>
 </resources>

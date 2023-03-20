@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/favoritesNavGraph"
+    app:startDestination="@id/favoritesFromTextFragment">
+
+    <fragment
+        android:id="@+id/favoritesFromTextFragment"
+        android:name="com.main.favorites.presentation.ui.FavoritesFragment"
+        android:label="FavoritesFromTextFragment">
+
+        <deepLink app:uri="QRCodeGeneratorWay://favorites" />
+    </fragment>
+</navigation>

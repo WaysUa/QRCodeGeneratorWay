@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/itemGeneration"
+        android:title="@string/item_generation"
+        android:icon="@drawable/icon_generation"
+        app:exb_color="@color/dark_green"/>
+
+    <item android:id="@+id/itemFavorites"
+        android:title="@string/item_favorites"
+        android:icon="@drawable/icon_favorites"
+        app:exb_color="@color/dark_green"/>
+
+</menu>

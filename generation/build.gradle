@@ -52,6 +52,8 @@ dependencies {
     implementation 'com.google.dagger:dagger:2.44.2'
     kapt 'com.google.dagger:dagger-compiler:2.44.2'
     implementation 'javax.inject:javax.inject:1'
+    //NavigationBar
+    implementation 'com.github.st235:expandablebottombar:1.5.1'
     //Modules
     implementation project(path: ':core')
 }

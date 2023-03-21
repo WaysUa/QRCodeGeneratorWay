@@ -18,12 +18,12 @@ import com.main.generation_from_link.di.modules.GenerationFromLinkDomainModule
 import com.main.generation_from_link.di.modules.GenerationFromLinkPresentationModule
 import com.main.generation_from_link.di.provider.ProvideGenerationFromLinkComponent
 import com.main.generation_from_phone.di.component.DaggerGenerationFromPhoneComponent
-import com.main.generation_from_text.di.component.DaggerGenerationFromTextComponent
 import com.main.generation_from_phone.di.component.GenerationFromPhoneComponent
 import com.main.generation_from_phone.di.modules.GenerationFromPhoneDataModule
 import com.main.generation_from_phone.di.modules.GenerationFromPhoneDomainModule
 import com.main.generation_from_phone.di.modules.GenerationFromPhonePresentationModule
 import com.main.generation_from_phone.di.provider.ProvideGenerationFromPhoneComponent
+import com.main.generation_from_text.di.component.DaggerGenerationFromTextComponent
 import com.main.generation_from_text.di.component.GenerationFromTextComponent
 import com.main.generation_from_text.di.modules.GenerationFromTextDataModule
 import com.main.generation_from_text.di.modules.GenerationFromTextDomainModule

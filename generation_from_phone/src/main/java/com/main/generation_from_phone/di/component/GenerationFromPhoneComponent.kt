@@ -1,9 +1,9 @@
 package com.main.generation_from_phone.di.component
 
-import com.main.generation_from_phone.presentation.ui.GenerationFromPhoneFragment
 import com.main.generation_from_phone.di.modules.GenerationFromPhoneDataModule
 import com.main.generation_from_phone.di.modules.GenerationFromPhoneDomainModule
 import com.main.generation_from_phone.di.modules.GenerationFromPhonePresentationModule
+import com.main.generation_from_phone.presentation.ui.GenerationFromPhoneFragment
 import dagger.Component
 
 @Component(modules = [

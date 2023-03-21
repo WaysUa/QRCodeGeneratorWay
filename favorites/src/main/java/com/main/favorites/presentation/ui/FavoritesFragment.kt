@@ -1,14 +1,12 @@
 package com.main.favorites.presentation.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.main.core.base.BaseFragment
-import com.main.favorites.R
 import com.main.favorites.databinding.FragmentFavoritesBinding
 import com.main.favorites.di.provider.ProvideFavoritesComponent
 import com.main.favorites.presentation.viewmodel.FavoritesViewModel

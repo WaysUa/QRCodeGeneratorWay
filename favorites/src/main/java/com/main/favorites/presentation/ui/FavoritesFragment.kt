@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.main.core.base.BaseFragment
 import com.main.favorites.databinding.FragmentFavoritesBinding
 import com.main.favorites.di.provider.ProvideFavoritesComponent
+import com.main.favorites.presentation.adapter.FavoritesQRCodesAdapter
 import com.main.favorites.presentation.viewmodel.FavoritesViewModel
 import com.main.favorites.presentation.viewmodel.FavoritesViewModelFactory
 import javax.inject.Inject
@@ -18,6 +19,7 @@ class FavoritesFragment : BaseFragment() {
     @Inject
     lateinit var favoritesViewModelFactory: FavoritesViewModelFactory
     private val favoritesViewModel: FavoritesViewModel by activityViewModels { favoritesViewModelFactory }
+    private val favoritesQRCodesAdapter = FavoritesQRCodesAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,6 +29,8 @@ class FavoritesFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity().applicationContext as ProvideFavoritesComponent).provideFavoritesComponent().inject(this)
+
+        binding.rvFavoritesQRCodes.adapter = favoritesQRCodesAdapter
 
         binding.bottomNavigationBar.menu.select(com.main.core.R.id.itemFavorites)
         binding.bottomNavigationBar.onItemSelectedListener = { _, menuItem, _ ->

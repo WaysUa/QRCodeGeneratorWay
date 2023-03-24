@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.main.core.base.BaseFragment
+import com.main.favorites.data.entities.QRCodeData
 import com.main.favorites.databinding.FragmentFavoritesBinding
 import com.main.favorites.di.provider.ProvideFavoritesComponent
 import com.main.favorites.presentation.adapter.FavoritesQRCodesAdapter
@@ -36,5 +37,19 @@ class FavoritesFragment : BaseFragment() {
         binding.bottomNavigationBar.onItemSelectedListener = { _, menuItem, _ ->
             favoritesViewModel.manageMenuItem(menuItem, findNavController())
         }
+        val list = mutableListOf<QRCodeData>(
+            QRCodeData("Hello", "World"),
+            QRCodeData("Hello", "World"),
+            QRCodeData("Hello", "World"),
+            QRCodeData("Hello", "World"),
+            QRCodeData("Hello", "World"),
+            QRCodeData("Hello", "World"),
+            QRCodeData("Hello", "World"),
+            QRCodeData("Hello", "World")
+        )
+
+        favoritesQRCodesAdapter.mapAll(
+            list
+        )
     }
 }

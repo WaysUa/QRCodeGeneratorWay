@@ -48,8 +48,6 @@ class FavoritesFragment : BaseFragment() {
             QRCodeData("Hello", "World")
         )
 
-        favoritesQRCodesAdapter.mapAll(
-            list
-        )
+        favoritesQRCodesAdapter.mapAll(list)
     }
 }

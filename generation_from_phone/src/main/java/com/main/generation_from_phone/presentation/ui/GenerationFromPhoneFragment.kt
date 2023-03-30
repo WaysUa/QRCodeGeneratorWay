@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.main.core.SimpleTextWatcher
 import com.main.core.base.BaseFragment
+import com.main.core.database.entities.QRCodeData
 import com.main.generation_from_phone.R
 import com.main.generation_from_phone.databinding.FragmentGenerationFromPhoneBinding
 import com.main.generation_from_phone.di.provider.ProvideGenerationFromPhoneComponent
@@ -65,6 +66,7 @@ class GenerationFromPhoneFragment : BaseFragment() {
             val btnMoreOptions = dialog.findViewById<FloatingActionButton>(R.id.btnMoreOptions)
             val ivQRCode = dialog.findViewById<ImageView>(R.id.ivQRCode)
             val btnClose = dialog.findViewById<ImageView>(R.id.btnClose)
+            val tvTitle = dialog.findViewById<TextView>(R.id.tvTitle)
 
             tvPhoneNumber.text = binding.etPhoneNumber.text
             tvPhoneNumber.setOnLongClickListener {
@@ -76,6 +78,14 @@ class GenerationFromPhoneFragment : BaseFragment() {
                     .setType(ContactsContract.Contacts.CONTENT_TYPE)
                     .putExtra(ContactsContract.Intents.Insert.PHONE, tvPhoneNumber.text)
                 startActivity(intent)
+            }
+            val qrCodeData = QRCodeData(
+                text = tvPhoneNumber.text.toString(),
+                generatedFrom = tvTitle.text.toString(),
+                image = image
+            )
+            btnFavorite.setOnClickListener {
+                generationFromTextViewModel.addQrCodeToDatabase(qrCodeData)
             }
             btnClose.setOnClickListener { dialog.hide() }
             ivQRCode.setImageBitmap(image)

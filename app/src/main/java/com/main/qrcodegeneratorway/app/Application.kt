@@ -1,6 +1,9 @@
 package com.main.qrcodegeneratorway.app
 
 import android.app.Application
+import com.main.core.database.repository.QRCodeCacheRepository
+import com.main.core.database.repository.QRCodeCacheRepositoryImpl
+import com.main.core.di.modules.CoreModule
 import com.main.favorites.di.component.DaggerFavoritesComponent
 import com.main.favorites.di.component.FavoritesComponent
 import com.main.favorites.di.modules.FavoritesDomainModule
@@ -29,9 +32,18 @@ import com.main.generation_from_text.di.modules.GenerationFromTextDataModule
 import com.main.generation_from_text.di.modules.GenerationFromTextDomainModule
 import com.main.generation_from_text.di.modules.GenerationFromTextPresentationModule
 import com.main.generation_from_text.di.provider.ProvideGenerationFromTextComponent
+import com.main.qrcodegeneratorway.data.cloud.QRCodeDatabase
 
 class Application : Application(), ProvideGenerationComponent, ProvideGenerationFromTextComponent,
     ProvideGenerationFromLinkComponent, ProvideGenerationFromPhoneComponent, ProvideFavoritesComponent {
+
+    private lateinit var coreModule: CoreModule
+
+    override fun onCreate() {
+        super.onCreate()
+        val qrCodeDao = QRCodeDatabase.getInstance(applicationContext).qrCodeDao()
+        coreModule = CoreModule(qrCodeDao)
+    }
 
     private val generationComponent by lazy {
         DaggerGenerationComponent
@@ -47,6 +59,7 @@ class Application : Application(), ProvideGenerationComponent, ProvideGeneration
             .generationFromTextDomainModule(GenerationFromTextDomainModule())
             .generationFromTextPresentationModule(GenerationFromTextPresentationModule())
             .generationFromTextDataModule(GenerationFromTextDataModule())
+            .coreModule(coreModule)
             .build()
     }
 
@@ -56,6 +69,7 @@ class Application : Application(), ProvideGenerationComponent, ProvideGeneration
             .generationFromLinkPresentationModule(GenerationFromLinkPresentationModule())
             .generationFromLinkDomainModule(GenerationFromLinkDomainModule())
             .generationFromLinkDataModule(GenerationFromLinkDataModule())
+            .coreModule(coreModule)
             .build()
     }
 
@@ -65,6 +79,7 @@ class Application : Application(), ProvideGenerationComponent, ProvideGeneration
             .generationFromPhoneDataModule(GenerationFromPhoneDataModule())
             .generationFromPhoneDomainModule(GenerationFromPhoneDomainModule())
             .generationFromPhonePresentationModule(GenerationFromPhonePresentationModule())
+            .coreModule(coreModule)
             .build()
     }
 
@@ -73,6 +88,7 @@ class Application : Application(), ProvideGenerationComponent, ProvideGeneration
             .builder()
             .favoritesDomainModule(FavoritesDomainModule())
             .favoritesPresentationModule(FavoritesPresentationModule())
+            .coreModule(coreModule)
             .build()
     }
 

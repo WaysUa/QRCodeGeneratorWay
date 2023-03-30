@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Html
 import android.text.Spanned
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.main.core.SimpleTextWatcher
 import com.main.core.base.BaseFragment
+import com.main.core.database.entities.QRCodeData
 import com.main.generation_from_link.R
 import com.main.generation_from_link.databinding.FragmentGenerationFromLinkBinding
 import com.main.generation_from_link.di.provider.ProvideGenerationFromLinkComponent
@@ -65,6 +67,7 @@ class GenerationFromLinkFragment : BaseFragment() {
             val dialog = generationFromLinkViewModel.createDialog(requireContext())
 
             val tvLink = dialog.findViewById<TextView>(R.id.tvLink)
+            val tvTitle = dialog.findViewById<TextView>(R.id.tvTitle)
             val btnFavorite = dialog.findViewById<FloatingActionButton>(R.id.btnFavorite)
             val btnMoreOptions = dialog.findViewById<FloatingActionButton>(R.id.btnMoreOptions)
             val ivQRCode = dialog.findViewById<ImageView>(R.id.ivQRCode)
@@ -83,6 +86,12 @@ class GenerationFromLinkFragment : BaseFragment() {
                 clipboardManager.setPrimaryClip(ClipData.newPlainText("Text", tvLink.text))
                 true
             }
+            val qrCodeData = QRCodeData(
+                text = tvLink.text.toString(),
+                generatedFrom = tvTitle.text.toString(),
+                image = image
+            )
+            btnFavorite.setOnClickListener { generationFromLinkViewModel.addQrCodeToDatabase(qrCodeData) }
             btnClose.setOnClickListener { dialog.hide() }
             ivQRCode.setImageBitmap(image)
             dialog.show()

@@ -47,6 +47,7 @@ class FavoritesFragment : BaseFragment() {
             QRCodeData("Hello", "World"),
             QRCodeData("Hello", "World")
         )
+        favoritesViewModel.getAllQRCodes()
 
         favoritesQRCodesAdapter.mapAll(list)
     }

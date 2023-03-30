@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.main.core.SimpleTextWatcher
 import com.main.core.base.BaseFragment
+import com.main.core.database.entities.QRCodeData
 import com.main.generation_from_text.R
 import com.main.generation_from_text.databinding.FragmentGenerationFromTextBinding
 import com.main.generation_from_text.di.provider.ProvideGenerationFromTextComponent
@@ -63,11 +64,20 @@ class GenerationFromTextFragment : BaseFragment() {
             val btnMoreOptions = dialog.findViewById<FloatingActionButton>(R.id.btnMoreOptions)
             val ivQRCode = dialog.findViewById<ImageView>(R.id.ivQRCode)
             val btnClose = dialog.findViewById<ImageView>(R.id.btnClose)
+            val tvTitle = dialog.findViewById<TextView>(R.id.tvTitle)
 
             tvTextInfo.text = binding.etText.text
             tvTextInfo.setOnLongClickListener {
                 clipboardManager.setPrimaryClip(ClipData.newPlainText("Text", tvTextInfo.text))
                 true
+            }
+            val qrCodeData = QRCodeData(
+                text = tvTextInfo.text.toString(),
+                generatedFrom = tvTitle.text.toString(),
+                image = image
+            )
+            btnFavorite.setOnClickListener {
+                generationFromTextViewModel.addQrCodeToDatabase(qrCodeData)
             }
             btnClose.setOnClickListener { dialog.hide() }
             ivQRCode.setImageBitmap(image)

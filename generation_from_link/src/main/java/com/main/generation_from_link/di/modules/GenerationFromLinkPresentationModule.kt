@@ -1,5 +1,6 @@
 package com.main.generation_from_link.di.modules
 
+import com.main.core.database.repository.QRCodeCacheRepository
 import com.main.generation_from_link.domain.dialog.ManageGeneratedDialogFromLink
 import com.main.generation_from_link.domain.usecase.GenerationFromLinkUseCase
 import com.main.generation_from_link.presentation.communication.GenerationFromLinkCommunication
@@ -15,12 +16,14 @@ class GenerationFromLinkPresentationModule {
     fun provideGenerationFromTextViewModelFactory(
         generationFromLinkUseCase: GenerationFromLinkUseCase,
         generationFromTextCommunication: GenerationFromLinkCommunication,
-        manageGeneratedDialogFromLink: ManageGeneratedDialogFromLink
+        manageGeneratedDialogFromLink: ManageGeneratedDialogFromLink,
+        qrCodeCacheRepository: QRCodeCacheRepository
     ): GenerationFromLinkViewModelFactory {
         return GenerationFromLinkViewModelFactory(
             generationFromLinkUseCase = generationFromLinkUseCase,
             generationFromLinkCommunication = generationFromTextCommunication,
-            manageGeneratedDialogFromLink = manageGeneratedDialogFromLink
+            manageGeneratedDialogFromLink = manageGeneratedDialogFromLink,
+            qrCodeCacheRepository = qrCodeCacheRepository
         )
     }
 

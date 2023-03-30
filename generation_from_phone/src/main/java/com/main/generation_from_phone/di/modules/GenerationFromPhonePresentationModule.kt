@@ -1,5 +1,6 @@
 package com.main.generation_from_phone.di.modules
 
+import com.main.core.database.repository.QRCodeCacheRepository
 import com.main.generation_from_phone.domain.dialog.ManageGeneratedDialogFromPhone
 import com.main.generation_from_phone.domain.usecase.GenerationFromPhoneUseCase
 import com.main.generation_from_phone.presentation.communication.GenerationFromPhoneCommunication
@@ -15,12 +16,14 @@ class GenerationFromPhonePresentationModule {
     fun provideGenerationFromPhoneViewModelFactory(
         generationFromPhoneUseCase: GenerationFromPhoneUseCase,
         generationFromPhoneCommunication: GenerationFromPhoneCommunication,
-        manageGeneratedDialogFromPhone: ManageGeneratedDialogFromPhone
+        manageGeneratedDialogFromPhone: ManageGeneratedDialogFromPhone,
+        qrCodeCacheRepository: QRCodeCacheRepository
     ): GenerationFromPhoneViewModelFactory {
         return GenerationFromPhoneViewModelFactory(
             generationFromPhoneUseCase = generationFromPhoneUseCase,
             generationFromPhoneCommunication = generationFromPhoneCommunication,
-            manageGeneratedDialogFromPhone = manageGeneratedDialogFromPhone
+            manageGeneratedDialogFromPhone = manageGeneratedDialogFromPhone,
+            qrCodeCacheRepository = qrCodeCacheRepository
         )
     }
 

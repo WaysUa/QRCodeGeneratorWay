@@ -1,5 +1,6 @@
 package com.main.generation_from_text.di.modules
 
+import com.main.core.database.repository.QRCodeCacheRepository
 import com.main.generation_from_text.domain.dialog.ManageGeneratedDialogFromText
 import com.main.generation_from_text.domain.usecase.GenerationFromTextUseCase
 import com.main.generation_from_text.presentation.communication.GenerationFromTextCommunication
@@ -15,12 +16,14 @@ class GenerationFromTextPresentationModule {
     fun provideGenerationFromTextViewModelFactory(
         generationFromTextUseCase: GenerationFromTextUseCase,
         generationFromTextCommunication: GenerationFromTextCommunication,
-        manageGeneratedDialogFromText: ManageGeneratedDialogFromText
+        manageGeneratedDialogFromText: ManageGeneratedDialogFromText,
+        qrCodeCacheRepository: QRCodeCacheRepository
     ): GenerationFromTextViewModelFactory {
         return GenerationFromTextViewModelFactory(
             generationFromTextUseCase = generationFromTextUseCase,
             generationFromTextCommunication = generationFromTextCommunication,
-            manageGeneratedDialogFromText = manageGeneratedDialogFromText
+            manageGeneratedDialogFromText = manageGeneratedDialogFromText,
+            qrCodeCacheRepository = qrCodeCacheRepository
         )
     }
 
